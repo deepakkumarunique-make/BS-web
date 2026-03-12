@@ -1,102 +1,115 @@
-const music=document.getElementById("bgMusic")
+function start(){
 
-function startJourney(){
+document.getElementById("music").play()
 
-music.play()
+showPage("languages")
 
-document.getElementById("intro").style.display="none"
-
-document.getElementById("special").style.display="flex"
-
-createHearts()
+createLanguages()
 
 }
 
-function nextSection(id){
+function showPage(id){
 
-document.querySelectorAll("section").forEach(s=>s.style.display="none")
+document.querySelectorAll("section")
+.forEach(s=>s.style.display="none")
 
 document.getElementById(id).style.display="flex"
 
 }
 
+/* birthday languages */
+
+const languages=[
+
+"Happy Birthday 🎂",
+"Janamdin Mubarak 🎉",
+"Feliz Cumpleaños 🎈",
+"Bon Anniversaire 💐",
+"Alles Gute zum Geburtstag 🎁",
+"Buon Compleanno ❤️",
+"Otanjoubi Omedetou 🎀",
+"Saeng-il Chukha Hamnida 🎊"
+
+]
+
+function createLanguages(){
+
+const container=document.getElementById("languageContainer")
+
+languages.forEach(text=>{
+
+let div=document.createElement("div")
+
+div.className="lang"
+
+div.innerText=text
+
+div.style.left=Math.random()*80+"vw"
+
+container.appendChild(div)
+
+})
+
+}
+
+/* reasons */
+
 const reasons=[
+
 "Your smile fixes my worst days",
 "Your laugh is my favorite sound",
 "You make ordinary moments magical",
-"Talking to you feels like home",
-"Your kindness is beautiful",
-"You inspire me to be better",
-"You make life more colorful",
 "You understand me without words",
-"You bring warmth everywhere",
+"You make life more colorful",
+"You inspire me to be better",
+"Talking to you feels like home",
 "You make the future exciting",
-"You are stronger than you think",
-"You turn small moments into memories",
-"Your happiness matters to me",
-"You make silence comfortable",
-"You make every day brighter",
-"Your eyes tell beautiful stories",
-"You make me smile randomly",
-"You are incredibly special",
-"You make life meaningful",
+"You bring warmth wherever you go",
 "Because you are Shruti ❤️"
+
 ]
 
-function createHearts(){
+reasons.forEach(text=>{
 
-const area=document.getElementById("heartArea")
+let div=document.createElement("div")
 
-for(let i=0;i<20;i++){
+div.className="reason"
 
-let heart=document.createElement("div")
+div.innerText=text
 
-heart.innerHTML="❤️"
+div.style.left=Math.random()*70+"vw"
 
-heart.className="heart"
+document.getElementById("reasons").appendChild(div)
 
-heart.style.left=Math.random()*100+"vw"
+})
 
-heart.style.top=Math.random()*80+"vh"
+/* image viewer */
 
-heart.onclick=()=>{
+function openImage(src){
 
-let r=Math.floor(Math.random()*reasons.length)
+document.getElementById("viewer").style.display="flex"
 
-document.getElementById("reasonBox").innerText=reasons[r]
-
-}
-
-area.appendChild(heart)
+document.getElementById("viewerImg").src=src
 
 }
 
-}
+function closeViewer(){
 
-const wishes=[
-"May your dreams grow bigger this year",
-"May happiness always follow you",
-"May life surprise you with beautiful moments",
-"May your smile never fade",
-"May your heart stay peaceful",
-"May your future be full of joy"
-]
-
-function generateWish(){
-
-let r=Math.floor(Math.random()*wishes.length)
-
-document.getElementById("wishText").innerText=wishes[r]
+document.getElementById("viewer").style.display="none"
 
 }
+
+/* envelope */
 
 function openLetter(){
 
 document.querySelector(".envelope").style.display="none"
 
-document.getElementById("letterContent").style.display="block"
+document.getElementById("letterText").style.display="block"
 
 }
+
+/* proposal */
 
 function moveNo(){
 
@@ -108,8 +121,11 @@ btn.style.left=Math.random()*200+"px"
 
 }
 
-function yesAnswer(){
+function yes(){
 
-document.getElementById("finalMessage").innerText="You just made my world the happiest ❤️"
+document.getElementById("noBtn").style.display="none"
+
+document.getElementById("result").innerText=
+"You just made me the happiest person ❤️"
 
 }
