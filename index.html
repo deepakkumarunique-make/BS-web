@@ -1,22 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Happy Birthday Shruti ❤️</title>
+<title>Happy Birthday Shruti</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
 
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Segoe UI, sans-serif;
+}
+
+body{
+color:white;
+text-align:center;
+
+background:
+linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+url("images/hero.jpg");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+section{
+min-height:100vh;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:6vw;
+}
+
+#landing{display:flex}
+
+h1{
+font-size:clamp(34px,7vw,50px);
+margin-bottom:20px;
+}
+
+h2{
+font-size:clamp(26px,6vw,36px);
+margin-bottom:20px;
+}
+
+p{
+font-size:clamp(18px,4vw,22px);
+max-width:600px;
+line-height:1.6;
+}
+
+button{
+margin-top:30px;
+padding:14px 30px;
+font-size:18px;
+border:none;
+border-radius:14px;
+background:#ff4f9a;
+color:white;
+cursor:pointer;
+}
+
+button:hover{transform:scale(1.05)}
+
+.card{
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(8px);
+padding:40px;
+border-radius:16px;
+width:85%;
+max-width:340px;
+margin-top:30px;
+}
+
+/* hearts */
+
+.hearts{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:30px;
+}
+
+.heart{
+font-size:32px;
+cursor:pointer;
+transition:.3s;
+}
+
+.heart:hover{transform:scale(1.3)}
+
+#reasonBox{
+margin-top:25px;
+font-size:22px;
+color:#ffb3d9;
+}
+
+/* memories */
+
+.slider{
+position:relative;
+max-width:350px;
+}
+
+.slider img{
+width:100%;
+border-radius:16px;
+}
+
+/* envelope */
+
+.envelope{
+background:white;
+color:black;
+padding:40px;
+border-radius:12px;
+cursor:pointer;
+}
+
+#letter{
+display:none;
+max-width:600px;
+font-size:20px;
+line-height:1.7;
+margin-top:20px;
+}
+
+</style>
 </head>
+
 
 <body>
 
 <audio id="music" loop>
-<source src="music/birthday.mp3" type="audio/mpeg">
+<source src="music/birthday.mp3">
 </audio>
-
 
 <!-- Landing -->
 
@@ -25,27 +149,33 @@
 <h1>Happy Birthday Shruti 🎂</h1>
 
 <p>
-Among billions of people in this universe,
-one soul shines the brightest.
+Today is a small celebration
+for someone who quietly
+makes the world a little brighter.
 </p>
 
-<button onclick="start()">Enter Your Universe ✨</button>
+<button onclick="start()">Begin</button>
 
 </section>
 
 
 
-<!-- Birthday Languages -->
+<!-- Languages -->
 
 <section id="languages">
 
 <h2>Birthday Wishes From Around The World 🌍</h2>
 
-<div id="languageContainer"></div>
+<div class="card">
 
-<button onclick="showPage('special')">
-See Why You Are Special ❤️
-</button>
+<h3 id="langText">Happy Birthday</h3>
+<p id="langLang">English</p>
+
+</div>
+
+<button onclick="nextLang()">Next Wish</button>
+
+<button onclick="show('special')">Continue</button>
 
 </section>
 
@@ -55,13 +185,22 @@ See Why You Are Special ❤️
 
 <section id="special">
 
-<h2>Why You Are Special To Me 💖</h2>
+<h2>Why You Are Special</h2>
 
-<div id="reasons"></div>
+<div class="hearts">
 
-<button onclick="showPage('memories')">
-Some Beautiful Memories 📸
-</button>
+<span class="heart" onclick="showReason()">❤️</span>
+<span class="heart" onclick="showReason()">❤️</span>
+<span class="heart" onclick="showReason()">❤️</span>
+<span class="heart" onclick="showReason()">❤️</span>
+<span class="heart" onclick="showReason()">❤️</span>
+<span class="heart" onclick="showReason()">❤️</span>
+
+</div>
+
+<div id="reasonBox"></div>
+
+<button onclick="show('memories')">Memories</button>
 
 </section>
 
@@ -71,24 +210,17 @@ Some Beautiful Memories 📸
 
 <section id="memories">
 
-<h2>Moments That Matter</h2>
+<h2>Some Beautiful Moments</h2>
 
-<div class="cards">
+<div class="slider">
 
-<img src="images/memory1.jpg" onclick="openImage(this.src)">
-<img src="images/memory2.jpg" onclick="openImage(this.src)">
-<img src="images/memory3.jpg" onclick="openImage(this.src)">
-<img src="images/memory4.jpg" onclick="openImage(this.src)">
+<img id="slide" src="images/memory1.jpg">
 
 </div>
 
-<div id="viewer" onclick="closeViewer()">
-<img id="viewerImg">
-</div>
+<button onclick="nextSlide()">Next</button>
 
-<button onclick="showPage('letter')">
-I Wrote Something For You 💌
-</button>
+<button onclick="show('letterSection')">One More Thing</button>
 
 </section>
 
@@ -96,7 +228,7 @@ I Wrote Something For You 💌
 
 <!-- Letter -->
 
-<section id="letter">
+<section id="letterSection">
 
 <div class="envelope" onclick="openLetter()">
 
@@ -104,60 +236,131 @@ Tap to open the letter
 
 </div>
 
-<div id="letterText">
+<div id="letter">
 
 <p>
 
 Dear Shruti,
 
-Today the world celebrates the day
-someone truly special was born.
+Today the world celebrates
+the day someone wonderful was born.
 
-Your smile brightens ordinary days.
-Your presence makes moments peaceful.
+Your smile brightens ordinary days,
+and your presence makes moments peaceful.
 
-And if life allows,
-I would love to celebrate
-many more birthdays with you.
+I simply hope life gives you
+many reasons to smile,
+many dreams to chase,
+and countless beautiful memories.
 
-– Deepak ❤️
+Happy Birthday Shruti ❤️
 
 </p>
 
-<button onclick="showPage('proposal')">
-There is one thing I want to ask...
-</button>
-
 </div>
 
 </section>
 
 
 
-<!-- Proposal -->
+<script>
 
-<section id="proposal">
+/* navigation */
 
-<h2>
+function show(id){
 
-Would you consider me as your life partner
-despite all the challenges ahead?
+document.querySelectorAll("section")
+.forEach(s=>s.style.display="none")
 
-</h2>
+document.getElementById(id).style.display="flex"
 
-<div class="buttons">
+}
 
-<button id="yesBtn" onclick="yes()">Yes ❤️</button>
+/* start */
 
-<button id="noBtn" onmouseover="moveNo()">Let me think 😅</button>
+function start(){
 
-</div>
+document.getElementById("music").play()
 
-<div id="result"></div>
+show("languages")
 
-</section>
+}
 
-<script src="script.js"></script>
+/* languages */
+
+const langs=[
+["Happy Birthday","English"],
+["Janamdin Mubarak","Hindi"],
+["Feliz Cumpleaños","Spanish"],
+["Bon Anniversaire","French"],
+["Alles Gute zum Geburtstag","German"],
+["Buon Compleanno","Italian"],
+["Otanjoubi Omedetou","Japanese"],
+["Saeng-il Chukha Hamnida","Korean"]
+]
+
+let l=0
+
+function nextLang(){
+
+l=(l+1)%langs.length
+
+document.getElementById("langText").innerText=langs[l][0]
+document.getElementById("langLang").innerText=langs[l][1]
+
+}
+
+/* reasons */
+
+const reasons=[
+"Your smile fixes the dullest days",
+"You make ordinary moments magical",
+"Your laughter is contagious",
+"You make people feel comfortable",
+"You bring warmth wherever you go",
+"You inspire people quietly",
+"You make life feel lighter",
+"You are simply wonderful"
+]
+
+function showReason(){
+
+let r=Math.floor(Math.random()*reasons.length)
+
+document.getElementById("reasonBox").innerText=reasons[r]
+
+}
+
+/* slider */
+
+let slides=[
+"images/memory1.jpg",
+"images/memory2.jpg",
+"images/memory3.jpg",
+"images/memory4.jpg"
+]
+
+let s=0
+
+function nextSlide(){
+
+s=(s+1)%slides.length
+
+document.getElementById("slide").src=slides[s]
+
+}
+
+/* letter */
+
+function openLetter(){
+
+document.querySelector(".envelope").style.display="none"
+
+document.getElementById("letter").style.display="block"
+
+}
+
+</script>
 
 </body>
 </html>
