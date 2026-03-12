@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,128 +13,147 @@
 
 <body>
 
-<audio id="bgMusic" loop>
+<audio id="music" loop>
 <source src="music/birthday.mp3" type="audio/mpeg">
 </audio>
 
-<section id="intro">
 
-<div class="overlay">
+<!-- Landing -->
 
-<h1 class="title">Happy Birthday Shruti 🎂</h1>
+<section id="landing">
 
-<p class="subtitle">
+<h1>Happy Birthday Shruti 🎂</h1>
+
+<p>
 Among billions of people in this universe,
 one soul shines the brightest.
 </p>
 
-<button onclick="startJourney()">Enter Your Universe ✨</button>
-
-</div>
+<button onclick="start()">Enter Your Universe ✨</button>
 
 </section>
 
+
+
+<!-- Birthday Languages -->
+
+<section id="languages">
+
+<h2>Birthday Wishes From Around The World 🌍</h2>
+
+<div id="languageContainer"></div>
+
+<button onclick="showPage('special')">
+See Why You Are Special ❤️
+</button>
+
+</section>
+
+
+
+<!-- Special -->
 
 <section id="special">
 
 <h2>Why You Are Special To Me 💖</h2>
 
-<div class="heart-area" id="heartArea"></div>
+<div id="reasons"></div>
 
-<div id="reasonBox"></div>
-
-<button onclick="nextSection('memories')">Continue ➜</button>
+<button onclick="showPage('memories')">
+Some Beautiful Memories 📸
+</button>
 
 </section>
 
+
+
+<!-- Memories -->
 
 <section id="memories">
 
-<h2>Some Beautiful Memories 📸</h2>
+<h2>Moments That Matter</h2>
 
-<div class="gallery">
+<div class="cards">
 
-<img src="images/memory1.jpg">
-<img src="images/memory2.jpg">
-<img src="images/memory3.jpg">
-<img src="images/memory4.jpg">
+<img src="images/memory1.jpg" onclick="openImage(this.src)">
+<img src="images/memory2.jpg" onclick="openImage(this.src)">
+<img src="images/memory3.jpg" onclick="openImage(this.src)">
+<img src="images/memory4.jpg" onclick="openImage(this.src)">
 
 </div>
 
-<button onclick="nextSection('wish')">Next Surprise 🎁</button>
+<div id="viewer" onclick="closeViewer()">
+<img id="viewerImg">
+</div>
+
+<button onclick="showPage('letter')">
+I Wrote Something For You 💌
+</button>
 
 </section>
 
 
-<section id="wish">
 
-<h2>Birthday Wish Generator 🎂</h2>
-
-<button onclick="generateWish()">Generate Wish</button>
-
-<div id="wishText"></div>
-
-<button onclick="nextSection('letter')">Open My Letter 💌</button>
-
-</section>
-
+<!-- Letter -->
 
 <section id="letter">
 
 <div class="envelope" onclick="openLetter()">
 
-<p>Click to open</p>
+Tap to open the letter
 
 </div>
 
-<div id="letterContent">
+<div id="letterText">
 
 <p>
 
 Dear Shruti,
 
-Today the world celebrates the day someone incredibly special was born.
+Today the world celebrates the day
+someone truly special was born.
 
-Your smile makes ordinary days brighter.
+Your smile brightens ordinary days.
 Your presence makes moments peaceful.
 
 And if life allows,
-I would love to celebrate many more birthdays of yours.
+I would love to celebrate
+many more birthdays with you.
 
-— Deepak ❤️
+– Deepak ❤️
 
 </p>
 
-<button onclick="nextSection('proposal')">One Last Thing...</button>
+<button onclick="showPage('proposal')">
+There is one thing I want to ask...
+</button>
 
 </div>
 
 </section>
 
 
+
+<!-- Proposal -->
+
 <section id="proposal">
 
-<h2>Before this day ends...</h2>
-
-<p>
-
-Life will bring challenges.
-But together they may become easier.
+<h2>
 
 Would you consider me as your life partner
 despite all the challenges ahead?
 
-</p>
+</h2>
 
-<div class="proposal-buttons">
+<div class="buttons">
 
-<button id="yesBtn" onclick="yesAnswer()">Yes ❤️</button>
+<button id="yesBtn" onclick="yes()">Yes ❤️</button>
 
 <button id="noBtn" onmouseover="moveNo()">Let me think 😅</button>
 
 </div>
 
-<div id="finalMessage"></div>
+<div id="result"></div>
 
 </section>
 
