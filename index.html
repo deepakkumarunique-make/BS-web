@@ -3,7 +3,6 @@
 <head>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Happy Birthday Shruti ❤️</title>
 
 <style>
@@ -26,9 +25,6 @@ padding:30px;
 background:rgba(0,0,0,0.55);
 }
 
-h1{font-size:32px}
-h2{font-size:26px}
-
 button{
 padding:14px 24px;
 border:none;
@@ -40,9 +36,7 @@ margin:10px;
 cursor:pointer;
 }
 
-button:hover{
-transform:scale(1.05);
-}
+button:hover{transform:scale(1.05)}
 
 video{
 width:90%;
@@ -51,37 +45,23 @@ border-radius:16px;
 margin-top:20px;
 }
 
-.heartBtn{
-font-size:28px;
-margin:6px;
-background:#ff4d6d;
-border-radius:50%;
-width:60px;
-height:60px;
-display:inline-flex;
-align-items:center;
-justify-content:center;
+.heart{
+font-size:30px;
+margin:8px;
 cursor:pointer;
+transition:0.3s;
 }
 
-.popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.8);
-display:none;
-justify-content:center;
-align-items:center;
+.fade{
+opacity:0.3;
+pointer-events:none;
 }
 
-.popupBox{
-background:white;
-color:black;
-padding:25px;
-border-radius:14px;
-max-width:320px;
+.textBox{
+max-width:420px;
+margin-top:20px;
+font-size:18px;
+line-height:1.6;
 }
 
 textarea{
@@ -107,9 +87,6 @@ border:none;
 <source src="music/audio.mp3">
 </audio>
 
-<div class="popup" id="popup">
-<div class="popupBox" id="popupText"></div>
-</div>
 
 <!-- LANDING -->
 
@@ -162,18 +139,20 @@ Continue
 
 <h2>Tap Hearts To Reveal My Secrets ❤️</h2>
 
-<div>
+<div id="secretHearts">
 
-<span class="heartBtn" onclick="secret(0)">❤️</span>
-<span class="heartBtn" onclick="secret(1)">❤️</span>
-<span class="heartBtn" onclick="secret(2)">❤️</span>
-<span class="heartBtn" onclick="secret(3)">❤️</span>
-<span class="heartBtn" onclick="secret(4)">❤️</span>
-<span class="heartBtn" onclick="secret(5)">❤️</span>
-<span class="heartBtn" onclick="secret(6)">❤️</span>
-<span class="heartBtn" onclick="secret(7)">❤️</span>
+<span class="heart" onclick="revealSecret(this,0)">❤️</span>
+<span class="heart" onclick="revealSecret(this,1)">❤️</span>
+<span class="heart" onclick="revealSecret(this,2)">❤️</span>
+<span class="heart" onclick="revealSecret(this,3)">❤️</span>
+<span class="heart" onclick="revealSecret(this,4)">❤️</span>
+<span class="heart" onclick="revealSecret(this,5)">❤️</span>
+<span class="heart" onclick="revealSecret(this,6)">❤️</span>
+<span class="heart" onclick="revealSecret(this,7)">❤️</span>
 
 </div>
+
+<div class="textBox" id="secretText"></div>
 
 <button onclick="show('special')">Next</button>
 
@@ -186,7 +165,9 @@ Continue
 
 <h2>Click Hearts To Know Why You Are Special ❤️</h2>
 
-<div id="reasons"></div>
+<div id="reasonHearts"></div>
+
+<div class="textBox" id="reasonText"></div>
 
 <button onclick="show('future')">Next</button>
 
@@ -199,25 +180,7 @@ Continue
 
 <h2>Message From Future</h2>
 
-<p id="type"></p>
-
-<button onclick="show('question')">Next</button>
-
-</section>
-
-
-<!-- QUESTION -->
-
-<section id="question">
-
-<h2>One Question For You</h2>
-
-<p>What is your favourite memory with me?<br>
-You can also write anything you want on your birthday.</p>
-
-<textarea id="msg"></textarea><br>
-
-<button onclick="sendMsg()">Send</button>
+<p id="typeText" style="max-width:450px;line-height:1.7"></p>
 
 <button onclick="show('voice')">Next</button>
 
@@ -245,22 +208,27 @@ You can also write anything you want on your birthday.</p>
 
 <button onclick="openLetter()">Tap To Open My Letter ❤️</button>
 
-<p id="letterText" style="display:none; max-width:500px; margin-top:20px">
+<p id="letterText" style="display:none;max-width:450px;line-height:1.7;margin-top:20px"></p>
 
-Dear Shruti,<br><br>
+<button onclick="show('response')" id="respBtn" style="display:none">Next</button>
 
-Sometimes life gives us people who quietly become important.<br>
-You are one of those people in my life.<br><br>
+</section>
 
-Your smile, your thoughts, your presence<br>
-make ordinary days feel special.<br><br>
 
-And if life ever gives me the chance,<br>
-I would choose to walk this journey with you.<br><br>
+<!-- RESPONSE -->
 
-Happy Birthday once again ❤️
+<section id="response">
 
+<h2>One Question For You</h2>
+
+<p>
+What is your favourite memory with me?<br>
+Or you can write anything on your birthday.
 </p>
+
+<textarea></textarea><br>
+
+<button onclick="submitResponse()">Send</button>
 
 </section>
 
@@ -268,11 +236,8 @@ Happy Birthday once again ❤️
 <script>
 
 function show(id){
-
 document.querySelectorAll("section").forEach(s=>s.style.display="none")
-
 document.getElementById(id).style.display="flex"
-
 }
 
 show("landing")
@@ -293,7 +258,6 @@ v.play()
 v.loop=false
 
 document.getElementById("cutBtn").style.display="none"
-
 document.getElementById("nextBtn").style.display="block"
 
 document.getElementById("bdaySound").play()
@@ -301,35 +265,29 @@ document.getElementById("bdaySound").play()
 }
 
 
+
 let secrets=[
-
 "You look very cute when you are angry",
-
 "I love when you hold my hand",
-
 "I treat you as my future wife",
-
 "I live in your social media profiles",
-
 "I visit saved snaps whenever I miss you",
-
 "I love your hairs when they are open",
-
 "I hate when you reply me late",
-
 "I want to marry you despite all challenges"
-
 ]
 
-function secret(i){
+function revealSecret(el,i){
 
-popup(secrets[i])
+el.classList.add("fade")
+
+document.getElementById("secretText").innerText=secrets[i]
 
 }
 
 
-let reasons=[
 
+let reasons=[
 "Your smile","Your hairs","Your eyes","Your anger",
 "Your overthinking","Bracelet on your hand","Your kindness",
 "How you look at me","How you care","Your honesty",
@@ -337,44 +295,32 @@ let reasons=[
 "Your soul","The way you listen","The way you trust me",
 "The way you cry","Our late night talks","Our late night walks",
 "Your lips","The way you hold my hand","Everything about you"
-
 ]
 
-let r=document.getElementById("reasons")
+let r=document.getElementById("reasonHearts")
 
 reasons.forEach((t,i)=>{
 
-let d=document.createElement("span")
+let h=document.createElement("span")
+h.className="heart"
+h.innerHTML="❤️"
 
-d.className="heartBtn"
+h.onclick=function(){
 
-d.innerHTML="❤️"
+h.classList.add("fade")
+document.getElementById("reasonText").innerText=t
 
-d.onclick=()=>popup(t)
+}
 
-r.appendChild(d)
+r.appendChild(h)
 
 })
 
 
-function popup(text){
 
-document.getElementById("popup").style.display="flex"
+let future=`Dear Shruti,
 
-document.getElementById("popupText").innerText=text
-
-}
-
-document.getElementById("popup").onclick=()=>{
-
-document.getElementById("popup").style.display="none"
-
-}
-
-
-let futureText=`Dear Shruti,
-
-I hope when you read this,
+I hope when you read this
 you still have the same beautiful smile.
 
 Maybe by now we are married,
@@ -391,57 +337,92 @@ was the best decision of my life.
 Love,
 Deepak`
 
-let i=0
+let f=0
 
-function type(){
+function typeFuture(){
 
-if(i<futureText.length){
+if(f<future.length){
 
-document.getElementById("type").innerHTML+=futureText.charAt(i)
+document.getElementById("typeText").innerHTML+=future.charAt(f)
+f++
 
-i++
-
-setTimeout(type,40)
-
-}
+setTimeout(typeFuture,80)
 
 }
 
-type()
+}
+
+typeFuture()
+
 
 
 function playVoice(){
-
 document.getElementById("voiceMsg").play()
+}
+
+
+
+let letter=`Dear Shruti,
+
+Sometimes life brings someone
+who quietly becomes very important.
+
+You are that person for me.
+
+Your smile,
+your thoughts,
+your presence
+
+make ordinary days feel special.
+
+And if life ever gives me the chance,
+I would love to walk this journey with you.
+
+Happy Birthday once again ❤️`
+
+let l=0
+
+function openLetter(){
+
+document.getElementById("letterText").style.display="block"
+document.getElementById("respBtn").style.display="block"
+
+function typeLetter(){
+
+if(l<letter.length){
+
+document.getElementById("letterText").innerHTML+=letter.charAt(l)
+l++
+
+setTimeout(typeLetter,90)
+
+}
+
+}
+
+typeLetter()
 
 }
 
 
-function sendMsg(){
 
-popup("Your message made my day ❤️")
+function submitResponse(){
 
 window.open("https://docs.google.com/forms/d/e/1FAIpQLSdh8ebrDlwyTFBhCJfgwIaVCAO7koqWCVK0e9D3AfIvBG0L-A/viewform")
 
 }
 
 
-function openLetter(){
 
-document.getElementById("letterText").style.display="block"
-
-}
-
-
-let clickCount=0
+let clicks=0
 
 document.getElementById("shrutiName").onclick=function(){
 
-clickCount++
+clicks++
 
-if(clickCount==5){
+if(clicks==5){
 
-popup("You found a hidden message ❤️ \n\nYou mean my world to me more than you know.\nMaybe life becomes even more beautiful if you say YES for marriage someday 😁")
+alert("You found a hidden message ❤️\n\nYou mean my world to me more than you know.\nMaybe life becomes even more beautiful if you say YES for marriage someday 😁")
 
 }
 
