@@ -14,11 +14,10 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family: "Segoe UI", sans-serif;
+font-family:Segoe UI,sans-serif;
 }
 
 body{
-
 color:white;
 text-align:center;
 
@@ -29,25 +28,18 @@ url("images/hero.jpg");
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
-
 }
 
-/* sections */
-
 section{
-
 min-height:100vh;
 display:none;
-
 flex-direction:column;
 justify-content:center;
 align-items:center;
-
 padding:25px;
-
 }
 
-#landing{display:flex;}
+#landing{display:flex}
 
 h1{
 font-size:clamp(34px,7vw,50px);
@@ -66,69 +58,54 @@ line-height:1.6;
 }
 
 button{
-
 margin-top:30px;
 padding:14px 32px;
-
 font-size:18px;
-
 border:none;
 border-radius:14px;
-
 background:#ff4f9a;
 color:white;
-
 cursor:pointer;
-
 transition:.3s;
-
 }
 
 button:hover{
 transform:scale(1.08);
 }
 
-/* language card */
+.note{
+background:rgba(255,255,255,.2);
+padding:10px 20px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+/* card */
 
 .card{
-
 background:rgba(255,255,255,.15);
 backdrop-filter:blur(8px);
-
 padding:35px;
-
 border-radius:16px;
-
 width:85%;
 max-width:340px;
-
 margin-top:25px;
-
 }
 
 /* hearts */
 
 .hearts-grid{
-
 display:grid;
-
 grid-template-columns:repeat(5,1fr);
-
 gap:14px;
-
 margin-top:30px;
-
 max-width:320px;
-
 }
 
 .heart{
-
 font-size:30px;
 cursor:pointer;
-
 transition:.3s;
-
 }
 
 .heart:hover{
@@ -136,89 +113,51 @@ transform:scale(1.25);
 }
 
 .heart.clicked{
-opacity:0.4;
+opacity:.4;
 }
 
 #reasonBox{
-
 margin-top:25px;
-
 font-size:22px;
-
 color:#ffb3d9;
-
 min-height:40px;
-
 }
 
 /* slider */
 
 .slider{
-
 max-width:360px;
-
 margin-top:30px;
-
 }
 
 .slider img{
-
 width:100%;
-
 border-radius:16px;
-
 }
 
 /* envelope */
 
 .envelope{
-
 background:white;
-
 color:black;
-
 padding:40px;
-
 border-radius:12px;
-
 cursor:pointer;
-
 margin-top:30px;
-
 font-size:20px;
-
 }
 
 #letter{
-
 display:none;
-
 max-width:600px;
-
 margin-top:30px;
-
 font-size:20px;
-
 line-height:1.7;
-
 }
-
-/* video */
 
 video{
-box-shadow:0 10px 30px rgba(0,0,0,.6);
 border-radius:16px;
-}
-
-/* fade animation */
-
-section{
-animation:fade .8s;
-}
-
-@keyframes fade{
-from{opacity:0}
-to{opacity:1}
+box-shadow:0 10px 30px rgba(0,0,0,.6);
 }
 
 </style>
@@ -231,6 +170,11 @@ to{opacity:1}
 <source src="music/birthday.mp3">
 </audio>
 
+<audio id="cakeSound">
+<source src="music/bdaysound.mp3">
+</audio>
+
+
 <!-- LANDING -->
 
 <section id="landing">
@@ -242,7 +186,6 @@ to{opacity:1}
 Dear Shruti,<br><br>
 
 Today is all about celebrating you.<br>
-
 Your kindness, your smile, and the happiness you bring into my life.<br><br>
 
 I hope this birthday brings you as much joy as you bring to everyone around you.<br><br>
@@ -256,15 +199,20 @@ Happy Birthday to someone truly amazing. 💖
 </section>
 
 
-<!-- CAKE CUTTING -->
+
+<!-- CAKE SECTION -->
 
 <section id="cake">
+
+<div class="note">
+Please turn your volume up to listen to the wishes 🎧
+</div>
 
 <h2>Let's Cut Your Birthday Cake 🎂</h2>
 
 <p>Before we continue, there's a small celebration waiting for you.</p>
 
-<div style="margin-top:25px; max-width:380px;">
+<div style="margin-top:25px;max-width:380px">
 
 <video id="cakeVideo" width="100%" autoplay loop muted>
 
@@ -274,9 +222,9 @@ Happy Birthday to someone truly amazing. 💖
 
 </div>
 
-<button onclick="cutCake()" id="cakeBtn">Cut the Cake 🎂</button>
+<button id="cakeBtn" onclick="cutCake()">Cut the Cake 🎂</button>
 
-<button onclick="show('languages')" id="continueBtn" style="display:none;">
+<button onclick="show('languages')" id="continueBtn" style="display:none">
 Continue
 </button>
 
@@ -293,13 +241,11 @@ Continue
 <div class="card">
 
 <h3 id="langText">Happy Birthday</h3>
-
 <p id="langLang">English</p>
 
 </div>
 
 <button onclick="nextLang()">Next Wish</button>
-
 <button onclick="show('special')">Continue</button>
 
 </section>
@@ -316,32 +262,11 @@ Continue
 
 <div class="hearts-grid">
 
-<span class="heart" onclick="showReason(this,0)">❤️</span>
-<span class="heart" onclick="showReason(this,1)">❤️</span>
-<span class="heart" onclick="showReason(this,2)">❤️</span>
-<span class="heart" onclick="showReason(this,3)">❤️</span>
-<span class="heart" onclick="showReason(this,4)">❤️</span>
-
-<span class="heart" onclick="showReason(this,5)">❤️</span>
-<span class="heart" onclick="showReason(this,6)">❤️</span>
-<span class="heart" onclick="showReason(this,7)">❤️</span>
-<span class="heart" onclick="showReason(this,8)">❤️</span>
-<span class="heart" onclick="showReason(this,9)">❤️</span>
-
-<span class="heart" onclick="showReason(this,10)">❤️</span>
-<span class="heart" onclick="showReason(this,11)">❤️</span>
-<span class="heart" onclick="showReason(this,12)">❤️</span>
-<span class="heart" onclick="showReason(this,13)">❤️</span>
-<span class="heart" onclick="showReason(this,14)">❤️</span>
-
-<span class="heart" onclick="showReason(this,15)">❤️</span>
-<span class="heart" onclick="showReason(this,16)">❤️</span>
-<span class="heart" onclick="showReason(this,17)">❤️</span>
-<span class="heart" onclick="showReason(this,18)">❤️</span>
-<span class="heart" onclick="showReason(this,19)">❤️</span>
-
-<span class="heart" onclick="showReason(this,20)">❤️</span>
-<span class="heart" onclick="showReason(this,21)">❤️</span>
+<script>
+for(let i=0;i<22;i++){
+document.write(`<span class="heart" onclick="showReason(this,${i})">❤️</span>`)
+}
+</script>
 
 </div>
 
@@ -378,9 +303,7 @@ Continue
 <section id="letterSection">
 
 <div class="envelope" onclick="openLetter()">
-
 Tap to Open the Letter 💌
-
 </div>
 
 <div id="letter">
@@ -399,8 +322,7 @@ I hope this year brings you endless happiness,
 beautiful memories,
 and countless reasons to smile.<br><br>
 
-Happy Birthday once again,
-and never forget how amazing you are.<br><br>
+Happy Birthday once again.<br><br>
 
 — Deepak ❤️
 
@@ -414,25 +336,14 @@ and never forget how amazing you are.<br><br>
 
 <script>
 
-/* navigation */
-
 function show(id){
-
-document.querySelectorAll("section")
-.forEach(s=>s.style.display="none")
-
+document.querySelectorAll("section").forEach(s=>s.style.display="none")
 document.getElementById(id).style.display="flex"
-
 }
 
-/* start */
-
 function start(){
-
 document.getElementById("music").play()
-
 show("cake")
-
 }
 
 /* cake cutting */
@@ -446,10 +357,9 @@ video.pause()
 video.innerHTML='<source src="images/cakecut.mp4" type="video/mp4">'
 
 video.load()
-
 video.play()
 
-video.loop=false
+document.getElementById("cakeSound").play()
 
 document.getElementById("cakeBtn").style.display="none"
 
@@ -460,7 +370,6 @@ document.getElementById("continueBtn").style.display="inline-block"
 /* languages */
 
 const langs=[
-
 ["Happy Birthday","English"],
 ["Janamdin Mubarak","Hindi"],
 ["Feliz Cumpleaños","Spanish"],
@@ -469,25 +378,19 @@ const langs=[
 ["Buon Compleanno","Italian"],
 ["Otanjoubi Omedetou","Japanese"],
 ["Saeng-il Chukha Hamnida","Korean"]
-
 ]
 
 let l=0
 
 function nextLang(){
-
 l=(l+1)%langs.length
-
 document.getElementById("langText").innerText=langs[l][0]
-
 document.getElementById("langLang").innerText=langs[l][1]
-
 }
 
 /* reasons */
 
 const reasons=[
-
 "Your smile",
 "Your hairs",
 "Your eyes",
@@ -510,48 +413,35 @@ const reasons=[
 "Your lips",
 "The way you hold my hand",
 "Simply because you are Shruti ❤️"
-
 ]
 
 function showReason(el,index){
-
 if(el.classList.contains("clicked")) return
-
 el.classList.add("clicked")
-
 document.getElementById("reasonBox").innerText=reasons[index]
-
 }
 
 /* slider */
 
 let slides=[
-
 "images/memory1.jpg",
 "images/memory2.jpg",
 "images/memory3.jpg",
 "images/memory4.jpg"
-
 ]
 
 let s=0
 
 function nextSlide(){
-
 s=(s+1)%slides.length
-
 document.getElementById("slide").src=slides[s]
-
 }
 
 /* letter */
 
 function openLetter(){
-
 document.querySelector(".envelope").style.display="none"
-
 document.getElementById("letter").style.display="block"
-
 }
 
 </script>
