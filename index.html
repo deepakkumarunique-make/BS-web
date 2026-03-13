@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,35 +11,43 @@
 <style>
 
 *{
-box-sizing:border-box;
 margin:0;
 padding:0;
-font-family:Segoe UI, sans-serif;
+box-sizing:border-box;
+font-family: "Segoe UI", sans-serif;
 }
 
 body{
+
 color:white;
 text-align:center;
 
 background:
-linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
 url("images/hero.jpg");
 
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
+
 }
 
+/* sections */
+
 section{
+
 min-height:100vh;
 display:none;
+
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:6vw;
+
+padding:25px;
+
 }
 
-#landing{display:flex}
+#landing{display:flex;}
 
 h1{
 font-size:clamp(34px,7vw,50px);
@@ -46,7 +56,7 @@ margin-bottom:20px;
 
 h2{
 font-size:clamp(26px,6vw,36px);
-margin-bottom:20px;
+margin-bottom:15px;
 }
 
 p{
@@ -56,85 +66,159 @@ line-height:1.6;
 }
 
 button{
+
 margin-top:30px;
-padding:14px 30px;
+padding:14px 32px;
+
 font-size:18px;
+
 border:none;
 border-radius:14px;
+
 background:#ff4f9a;
 color:white;
+
 cursor:pointer;
+
+transition:.3s;
+
 }
 
-button:hover{transform:scale(1.05)}
+button:hover{
+transform:scale(1.08);
+}
+
+/* language card */
 
 .card{
+
 background:rgba(255,255,255,.15);
 backdrop-filter:blur(8px);
-padding:40px;
+
+padding:35px;
+
 border-radius:16px;
+
 width:85%;
 max-width:340px;
-margin-top:30px;
+
+margin-top:25px;
+
 }
 
 /* hearts */
 
-.hearts{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:15px;
+.hearts-grid{
+
+display:grid;
+
+grid-template-columns:repeat(5,1fr);
+
+gap:14px;
+
 margin-top:30px;
+
+max-width:320px;
+
 }
 
 .heart{
-font-size:32px;
+
+font-size:30px;
 cursor:pointer;
+
 transition:.3s;
+
 }
 
-.heart:hover{transform:scale(1.3)}
+.heart:hover{
+transform:scale(1.25);
+}
+
+.heart.clicked{
+opacity:0.4;
+}
 
 #reasonBox{
+
 margin-top:25px;
+
 font-size:22px;
+
 color:#ffb3d9;
+
+min-height:40px;
+
 }
 
-/* memories */
+/* slider */
 
 .slider{
-position:relative;
-max-width:350px;
+
+max-width:360px;
+
+margin-top:30px;
+
 }
 
 .slider img{
+
 width:100%;
+
 border-radius:16px;
+
 }
 
 /* envelope */
 
 .envelope{
+
 background:white;
+
 color:black;
+
 padding:40px;
+
 border-radius:12px;
+
 cursor:pointer;
+
+margin-top:30px;
+
+font-size:20px;
+
 }
 
 #letter{
+
 display:none;
+
 max-width:600px;
+
+margin-top:30px;
+
 font-size:20px;
+
 line-height:1.7;
-margin-top:20px;
+
+}
+
+/* smooth fade */
+
+section{
+animation:fade .8s;
+}
+
+@keyframes fade{
+
+from{opacity:0}
+to{opacity:1}
+
 }
 
 </style>
-</head>
 
+</head>
 
 <body>
 
@@ -142,16 +226,24 @@ margin-top:20px;
 <source src="music/birthday.mp3">
 </audio>
 
-<!-- Landing -->
+<!-- LANDING -->
 
 <section id="landing">
 
-<h1>Happy Birthday Shruti 🎂</h1>
+<h1>Happy Birthday My Favourite Person 🎂</h1>
 
 <p>
-Today is a small celebration
-for someone who quietly
-makes the world a little brighter.
+
+Dear Shruti,<br><br>
+
+Today is all about celebrating you.<br>
+
+Your kindness, your smile, and the happiness you bring into my life.<br><br>
+
+I hope this birthday brings you as much joy as you bring to everyone around you.<br><br>
+
+Happy Birthday to someone truly amazing. 💖
+
 </p>
 
 <button onclick="start()">Begin</button>
@@ -160,7 +252,7 @@ makes the world a little brighter.
 
 
 
-<!-- Languages -->
+<!-- LANGUAGES -->
 
 <section id="languages">
 
@@ -169,6 +261,7 @@ makes the world a little brighter.
 <div class="card">
 
 <h3 id="langText">Happy Birthday</h3>
+
 <p id="langLang">English</p>
 
 </div>
@@ -181,20 +274,42 @@ makes the world a little brighter.
 
 
 
-<!-- Special -->
+<!-- SPECIAL -->
 
 <section id="special">
 
-<h2>Why You Are Special</h2>
+<h2>Why You Are Special To Me</h2>
 
-<div class="hearts">
+<p>Click on each heart to know why you are special to me ❤️</p>
 
-<span class="heart" onclick="showReason()">❤️</span>
-<span class="heart" onclick="showReason()">❤️</span>
-<span class="heart" onclick="showReason()">❤️</span>
-<span class="heart" onclick="showReason()">❤️</span>
-<span class="heart" onclick="showReason()">❤️</span>
-<span class="heart" onclick="showReason()">❤️</span>
+<div class="hearts-grid">
+
+<span class="heart" onclick="showReason(this,0)">❤️</span>
+<span class="heart" onclick="showReason(this,1)">❤️</span>
+<span class="heart" onclick="showReason(this,2)">❤️</span>
+<span class="heart" onclick="showReason(this,3)">❤️</span>
+<span class="heart" onclick="showReason(this,4)">❤️</span>
+
+<span class="heart" onclick="showReason(this,5)">❤️</span>
+<span class="heart" onclick="showReason(this,6)">❤️</span>
+<span class="heart" onclick="showReason(this,7)">❤️</span>
+<span class="heart" onclick="showReason(this,8)">❤️</span>
+<span class="heart" onclick="showReason(this,9)">❤️</span>
+
+<span class="heart" onclick="showReason(this,10)">❤️</span>
+<span class="heart" onclick="showReason(this,11)">❤️</span>
+<span class="heart" onclick="showReason(this,12)">❤️</span>
+<span class="heart" onclick="showReason(this,13)">❤️</span>
+<span class="heart" onclick="showReason(this,14)">❤️</span>
+
+<span class="heart" onclick="showReason(this,15)">❤️</span>
+<span class="heart" onclick="showReason(this,16)">❤️</span>
+<span class="heart" onclick="showReason(this,17)">❤️</span>
+<span class="heart" onclick="showReason(this,18)">❤️</span>
+<span class="heart" onclick="showReason(this,19)">❤️</span>
+
+<span class="heart" onclick="showReason(this,20)">❤️</span>
+<span class="heart" onclick="showReason(this,21)">❤️</span>
 
 </div>
 
@@ -206,11 +321,11 @@ makes the world a little brighter.
 
 
 
-<!-- Memories -->
+<!-- MEMORIES -->
 
 <section id="memories">
 
-<h2>Some Beautiful Moments</h2>
+<h2>Some Beautiful Memories</h2>
 
 <div class="slider">
 
@@ -218,21 +333,21 @@ makes the world a little brighter.
 
 </div>
 
-<button onclick="nextSlide()">Next</button>
+<button onclick="nextSlide()">Next Photo</button>
 
-<button onclick="show('letterSection')">One More Thing</button>
+<button onclick="show('letterSection')">Open Something Special</button>
 
 </section>
 
 
 
-<!-- Letter -->
+<!-- LETTER -->
 
 <section id="letterSection">
 
 <div class="envelope" onclick="openLetter()">
 
-Tap to open the letter
+Tap to Open the Letter 💌
 
 </div>
 
@@ -240,20 +355,22 @@ Tap to open the letter
 
 <p>
 
-Dear Shruti,
+Dear Shruti,<br><br>
 
-Today the world celebrates
-the day someone wonderful was born.
+Some people make life brighter just by being in it.<br>
+You are one of those people.<br><br>
 
-Your smile brightens ordinary days,
-and your presence makes moments peaceful.
+Your presence makes ordinary moments feel special,
+and your smile has a way of making everything better.<br><br>
 
-I simply hope life gives you
-many reasons to smile,
-many dreams to chase,
-and countless beautiful memories.
+I hope this year brings you endless happiness,
+beautiful memories,
+and countless reasons to smile.<br><br>
 
-Happy Birthday Shruti ❤️
+Happy Birthday once again,
+and never forget how amazing you are.<br><br>
+
+— Deepak ❤️
 
 </p>
 
@@ -289,6 +406,7 @@ show("languages")
 /* languages */
 
 const langs=[
+
 ["Happy Birthday","English"],
 ["Janamdin Mubarak","Hindi"],
 ["Feliz Cumpleaños","Spanish"],
@@ -297,6 +415,7 @@ const langs=[
 ["Buon Compleanno","Italian"],
 ["Otanjoubi Omedetou","Japanese"],
 ["Saeng-il Chukha Hamnida","Korean"]
+
 ]
 
 let l=0
@@ -306,6 +425,7 @@ function nextLang(){
 l=(l+1)%langs.length
 
 document.getElementById("langText").innerText=langs[l][0]
+
 document.getElementById("langLang").innerText=langs[l][1]
 
 }
@@ -313,31 +433,51 @@ document.getElementById("langLang").innerText=langs[l][1]
 /* reasons */
 
 const reasons=[
-"Your smile fixes the dullest days",
-"You make ordinary moments magical",
-"Your laughter is contagious",
-"You make people feel comfortable",
-"You bring warmth wherever you go",
-"You inspire people quietly",
-"You make life feel lighter",
-"You are simply wonderful"
+
+"Your smile",
+"Your hairs",
+"Your eyes",
+"Your anger",
+"Your overthinking",
+"Bracelet on your hand",
+"Your kindness",
+"How you look at me",
+"How you care",
+"Your honesty",
+"Your touch",
+"Your dressing sense",
+"The way you watch movies",
+"Your soul",
+"The way you listen",
+"The way you trust me",
+"The way you cry",
+"Our late night talks",
+"Our late night walks",
+"Your lips",
+"The way you hold my hand",
+"Simply because you are Shruti ❤️"
+
 ]
 
-function showReason(){
+function showReason(el,index){
 
-let r=Math.floor(Math.random()*reasons.length)
+if(el.classList.contains("clicked")) return
 
-document.getElementById("reasonBox").innerText=reasons[r]
+el.classList.add("clicked")
+
+document.getElementById("reasonBox").innerText=reasons[index]
 
 }
 
 /* slider */
 
 let slides=[
+
 "images/memory1.jpg",
 "images/memory2.jpg",
 "images/memory3.jpg",
 "images/memory4.jpg"
+
 ]
 
 let s=0
