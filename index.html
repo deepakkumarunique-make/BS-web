@@ -1,185 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Happy Birthday Shruti</title>
+<title>Happy Birthday Shruti ❤️</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,sans-serif;
-}
-
 body{
+margin:0;
+font-family:Arial;
 color:white;
 text-align:center;
-
-background:
-linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-url("images/hero.jpg");
-
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+background:url("images/hero.jpg") center/cover fixed;
 }
 
 section{
 min-height:100vh;
-display:none;
+padding:40px 20px;
+background:rgba(0,0,0,.55);
+display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding:25px;
 }
 
-#landing{display:flex}
-
-h1{
-font-size:clamp(34px,7vw,50px);
-margin-bottom:20px;
-}
-
-h2{
-font-size:clamp(26px,6vw,36px);
-margin-bottom:15px;
-}
-
-p{
-font-size:clamp(18px,4vw,22px);
-max-width:600px;
-line-height:1.6;
-}
+h1{font-size:34px}
+h2{font-size:26px}
 
 button{
-margin-top:30px;
-padding:14px 32px;
-font-size:18px;
+padding:14px 24px;
 border:none;
-border-radius:14px;
-background:#ff4f9a;
+border-radius:30px;
+background:#ff4d6d;
 color:white;
+font-size:16px;
+margin:10px;
 cursor:pointer;
-transition:.3s;
+box-shadow:0 5px 15px rgba(0,0,0,.4);
 }
 
 button:hover{
-transform:scale(1.08);
-}
-
-.note{
-background:rgba(255,255,255,.2);
-padding:10px 20px;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-/* card */
-
-.card{
-background:rgba(255,255,255,.15);
-backdrop-filter:blur(8px);
-padding:35px;
-border-radius:16px;
-width:85%;
-max-width:340px;
-margin-top:25px;
-}
-
-/* hearts */
-
-.hearts-grid{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:14px;
-margin-top:30px;
-max-width:320px;
-}
-
-.heart{
-font-size:30px;
-cursor:pointer;
-transition:.3s;
-}
-
-.heart:hover{
-transform:scale(1.25);
-}
-
-.heart.clicked{
-opacity:.4;
-}
-
-#reasonBox{
-margin-top:25px;
-font-size:22px;
-color:#ffb3d9;
-min-height:40px;
-}
-
-/* slider */
-
-.slider{
-max-width:360px;
-margin-top:30px;
-}
-
-.slider img{
-width:100%;
-border-radius:16px;
-}
-
-/* envelope */
-
-.envelope{
-background:white;
-color:black;
-padding:40px;
-border-radius:12px;
-cursor:pointer;
-margin-top:30px;
-font-size:20px;
-}
-
-#letter{
-display:none;
-max-width:600px;
-margin-top:30px;
-font-size:20px;
-line-height:1.7;
+transform:scale(1.05);
 }
 
 video{
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.6);
+width:90%;
+max-width:400px;
+border-radius:20px;
+margin-top:20px;
+}
+
+.hearts{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:14px;
+max-width:400px;
+}
+
+.heart{
+font-size:28px;
+background:#ff4d6d;
+border-radius:50%;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+}
+
+.secretBtn{
+background:#ff7aa2;
+}
+
+textarea{
+width:90%;
+max-width:400px;
+height:120px;
+border-radius:12px;
+padding:10px;
+border:none;
+}
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.8);
+display:none;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:30px;
+}
+
+.popupBox{
+background:white;
+color:black;
+padding:25px;
+border-radius:14px;
+max-width:350px;
+}
+
+.note{
+font-size:14px;
+opacity:.9;
+margin-bottom:10px;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<audio id="music" loop>
-<source src="music/birthday.mp3">
-</audio>
-
-<audio id="cakeSound">
+<audio id="bdaySound">
 <source src="music/bdaysound.mp3">
 </audio>
+
+<audio id="voiceMsg">
+<source src="music/audio.mp3">
+</audio>
+
+<div class="popup" id="popup">
+<div class="popupBox" id="popupText"></div>
+</div>
 
 
 <!-- LANDING -->
 
 <section id="landing">
 
-<h1>Happy Birthday My Favourite Person 🎂</h1>
+<div class="note">🔊 Please turn volume up to listen wishes</div>
+
+<h1 id="shrutiName">Happy Birthday My Favourite Person</h1>
 
 <p>
 
@@ -190,145 +145,129 @@ Your kindness, your smile, and the happiness you bring into my life.<br><br>
 
 I hope this birthday brings you as much joy as you bring to everyone around you.<br><br>
 
-Happy Birthday to someone truly amazing. 💖
+Happy Birthday to someone truly amazing 💖
 
 </p>
 
-<button onclick="start()">Begin</button>
+<button onclick="show('cake')">Start Birthday Journey</button>
 
 </section>
 
 
-
-<!-- CAKE SECTION -->
+<!-- CAKE -->
 
 <section id="cake">
 
-<div class="note">
-Please turn your volume up to listen to the wishes 🎧
-</div>
-
 <h2>Let's Cut Your Birthday Cake 🎂</h2>
 
-<p>Before we continue, there's a small celebration waiting for you.</p>
-
-<div style="margin-top:25px;max-width:380px">
-
-<video id="cakeVideo" width="100%" autoplay loop muted>
-
-<source src="images/bcakecut.mp4" type="video/mp4">
-
+<video id="cakeVideo" autoplay loop muted>
+<source src="images/bcakecut.mp4">
 </video>
 
-</div>
+<button onclick="cutCake()" id="cutBtn">Cut Cake</button>
 
-<button id="cakeBtn" onclick="cutCake()">Cut the Cake 🎂</button>
-
-<button onclick="show('languages')" id="continueBtn" style="display:none">
+<button onclick="show('secrets')" id="nextBtn" style="display:none">
 Continue
 </button>
 
 </section>
 
 
+<!-- SECRETS -->
 
-<!-- LANGUAGES -->
+<section id="secrets">
 
-<section id="languages">
+<h2>Tap Hearts To Reveal My Secrets ❤️</h2>
 
-<h2>Birthday Wishes From Around The World 🌍</h2>
+<div class="hearts">
 
-<div class="card">
-
-<h3 id="langText">Happy Birthday</h3>
-<p id="langLang">English</p>
+<div class="heart" onclick="secret(0)">❤️</div>
+<div class="heart" onclick="secret(1)">❤️</div>
+<div class="heart" onclick="secret(2)">❤️</div>
+<div class="heart" onclick="secret(3)">❤️</div>
+<div class="heart" onclick="secret(4)">❤️</div>
+<div class="heart" onclick="secret(5)">❤️</div>
+<div class="heart" onclick="secret(6)">❤️</div>
+<div class="heart" onclick="secret(7)">❤️</div>
 
 </div>
 
-<button onclick="nextLang()">Next Wish</button>
-<button onclick="show('special')">Continue</button>
+<button onclick="show('special')">Next</button>
 
 </section>
 
 
-
-<!-- SPECIAL -->
+<!-- 22 REASONS -->
 
 <section id="special">
 
-<h2>Why You Are Special To Me</h2>
+<h2>Click Each Heart To Know Why You Are Special</h2>
 
-<p>Click on each heart to know why you are special to me ❤️</p>
+<div class="hearts" id="reasons"></div>
 
-<div class="hearts-grid">
-
-<script>
-for(let i=0;i<22;i++){
-document.write(`<span class="heart" onclick="showReason(this,${i})">❤️</span>`)
-}
-</script>
-
-</div>
-
-<div id="reasonBox"></div>
-
-<button onclick="show('memories')">Memories</button>
+<button onclick="show('future')">Next</button>
 
 </section>
 
 
+<!-- FUTURE MESSAGE -->
 
-<!-- MEMORIES -->
+<section id="future">
 
-<section id="memories">
+<h2>Message From The Future</h2>
 
-<h2>Some Beautiful Memories</h2>
+<p id="type"></p>
 
-<div class="slider">
-
-<img id="slide" src="images/memory1.jpg">
-
-</div>
-
-<button onclick="nextSlide()">Next Photo</button>
-
-<button onclick="show('letterSection')">Open Something Special</button>
+<button onclick="show('question')">Next</button>
 
 </section>
 
 
+<!-- QUESTION -->
 
-<!-- LETTER -->
+<section id="question">
 
-<section id="letterSection">
+<h2>One Question For You</h2>
 
-<div class="envelope" onclick="openLetter()">
-Tap to Open the Letter 💌
-</div>
+<p>What is your favourite memory with me?<br>
+You can also write anything you want on your birthday.</p>
 
-<div id="letter">
+<textarea id="msg"></textarea><br>
+
+<button onclick="sendMsg()">Send Message</button>
+
+<button onclick="show('voice')">Next</button>
+
+</section>
+
+
+<!-- VOICE -->
+
+<section id="voice">
+
+<h2>A Small Message From Me 🎧</h2>
+
+<button onclick="playVoice()">Play My Message</button>
+
+<button onclick="show('end')">Next</button>
+
+</section>
+
+
+<!-- END -->
+
+<section id="end">
+
+<h2>Before You Leave</h2>
 
 <p>
 
-Dear Shruti,<br><br>
+The world became a better place<br>
+the day you were born.<br><br>
 
-Some people make life brighter just by being in it.<br>
-You are one of those people.<br><br>
-
-Your presence makes ordinary moments feel special,
-and your smile has a way of making everything better.<br><br>
-
-I hope this year brings you endless happiness,
-beautiful memories,
-and countless reasons to smile.<br><br>
-
-Happy Birthday once again.<br><br>
-
-— Deepak ❤️
+Happy Birthday Shruti ❤️
 
 </p>
-
-</div>
 
 </section>
 
@@ -337,111 +276,194 @@ Happy Birthday once again.<br><br>
 <script>
 
 function show(id){
+
 document.querySelectorAll("section").forEach(s=>s.style.display="none")
+
 document.getElementById(id).style.display="flex"
+
 }
 
-function start(){
-document.getElementById("music").play()
-show("cake")
-}
+show("landing")
 
-/* cake cutting */
+
 
 function cutCake(){
 
-let video=document.getElementById("cakeVideo")
+let v=document.getElementById("cakeVideo")
 
-video.pause()
+v.pause()
 
-video.innerHTML='<source src="images/cakecut.mp4" type="video/mp4">'
+v.innerHTML='<source src="images/cakecut.mp4">'
 
-video.load()
-video.play()
+v.load()
 
-document.getElementById("cakeSound").play()
+v.play()
 
-document.getElementById("cakeBtn").style.display="none"
+v.loop=false
 
-document.getElementById("continueBtn").style.display="inline-block"
+document.getElementById("cutBtn").style.display="none"
+
+document.getElementById("nextBtn").style.display="block"
+
+document.getElementById("bdaySound").play()
 
 }
 
-/* languages */
 
-const langs=[
-["Happy Birthday","English"],
-["Janamdin Mubarak","Hindi"],
-["Feliz Cumpleaños","Spanish"],
-["Bon Anniversaire","French"],
-["Alles Gute zum Geburtstag","German"],
-["Buon Compleanno","Italian"],
-["Otanjoubi Omedetou","Japanese"],
-["Saeng-il Chukha Hamnida","Korean"]
+
+let secrets=[
+
+"You look very cute when you are angry",
+
+"I love when you hold my hand",
+
+"I treat you as my future wife",
+
+"I live in your social media profiles",
+
+"I visit saved snaps whenever I miss you",
+
+"I love your hairs when they are open",
+
+"I hate when you reply late… but still wait",
+
+"I want to marry you despite every challenge"
+
 ]
 
-let l=0
+function secret(i){
 
-function nextLang(){
-l=(l+1)%langs.length
-document.getElementById("langText").innerText=langs[l][0]
-document.getElementById("langLang").innerText=langs[l][1]
+popup(secrets[i])
+
 }
 
-/* reasons */
 
-const reasons=[
-"Your smile",
-"Your hairs",
-"Your eyes",
-"Your anger",
-"Your overthinking",
-"Bracelet on your hand",
-"Your kindness",
-"How you look at me",
-"How you care",
-"Your honesty",
-"Your touch",
-"Your dressing sense",
-"The way you watch movie",
-"Your soul",
-"The way you listen",
-"The way you trust me",
-"The way you cry",
-"Our late night talks",
-"Our late night walks",
-"Your lips",
-"The way you hold my hand",
-"Simply because you are Shruti ❤️"
+
+let reasons=[
+
+"Your smile","Your hairs","Your eyes","Your anger",
+
+"Your overthinking","Bracelet on your hand","Your kindness",
+
+"How you look at me","How you care","Your honesty",
+
+"Your touch","Your dressing sense","The way you watch movie",
+
+"Your soul","The way you listen","The way you trust me",
+
+"The way you cry","Our late night talks","Our late night walks",
+
+"Your lips","The way you hold my hand","Everything about you"
+
 ]
 
-function showReason(el,index){
-if(el.classList.contains("clicked")) return
-el.classList.add("clicked")
-document.getElementById("reasonBox").innerText=reasons[index]
+let r=document.getElementById("reasons")
+
+reasons.forEach((t,i)=>{
+
+let d=document.createElement("div")
+
+d.className="heart"
+
+d.innerHTML="❤️"
+
+d.onclick=()=>popup(t)
+
+r.appendChild(d)
+
+})
+
+
+
+function popup(text){
+
+document.getElementById("popup").style.display="flex"
+
+document.getElementById("popupText").innerText=text
+
 }
 
-/* slider */
+document.getElementById("popup").onclick=()=>{
 
-let slides=[
-"images/memory1.jpg",
-"images/memory2.jpg",
-"images/memory3.jpg",
-"images/memory4.jpg"
-]
+document.getElementById("popup").style.display="none"
 
-let s=0
-
-function nextSlide(){
-s=(s+1)%slides.length
-document.getElementById("slide").src=slides[s]
 }
 
-/* letter */
 
-function openLetter(){
-document.querySelector(".envelope").style.display="none"
-document.getElementById("letter").style.display="block"
+
+let futureText=`Dear Shruti,
+
+I hope when you read this you still have the same beautiful smile.
+
+Maybe by now we are married,
+living a simple life,
+laughing at small things.
+
+The worries you once had before marriage
+are gone now.
+
+And you are happy with me.
+
+Choosing you
+was the best decision I ever made.
+
+Love,
+Deepak`
+
+let i=0
+
+function type(){
+
+if(i<futureText.length){
+
+document.getElementById("type").innerHTML+=futureText.charAt(i)
+
+i++
+
+setTimeout(type,40)
+
+}
+
+}
+
+type()
+
+
+
+function playVoice(){
+
+document.getElementById("voiceMsg").play()
+
+}
+
+
+
+function sendMsg(){
+
+let text=document.getElementById("msg").value
+
+if(text=="")return
+
+popup("Your message made my day ❤️")
+
+window.open("https://docs.google.com/forms/d/e/1FAIpQLSdh8ebrDlwyTFBhCJfgwIaVCAO7koqWCVK0e9D3AfIvBG0L-A/viewform")
+
+}
+
+
+
+let clickCount=0
+
+document.getElementById("shrutiName").onclick=function(){
+
+clickCount++
+
+if(clickCount==5){
+
+popup("You found a hidden message ❤️ \n\nYou mean my world to me more than you know.\nMaybe life becomes even more beautiful if you say YES for marriage someday 😁")
+
+}
+
 }
 
 </script>
