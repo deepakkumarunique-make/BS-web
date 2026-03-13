@@ -24,8 +24,6 @@ justify-content:center;
 align-items:center;
 padding:30px;
 background:rgba(0,0,0,0.55);
-opacity:1;
-transition:opacity .5s;
 }
 
 h1{font-size:32px}
@@ -56,13 +54,15 @@ margin-top:20px;
 }
 
 .heart{
-font-size:30px;
+font-size:28px;
 margin:8px;
 cursor:pointer;
 transition:.4s;
 }
 
-.heart:hover{transform:scale(1.3)}
+.heart:hover{
+transform:scale(1.3)
+}
 
 .fade{
 opacity:0.2;
@@ -88,13 +88,29 @@ pointer-events:none;
 .bgHearts span{
 position:absolute;
 color:#ff6b81;
+opacity:0.15;
 font-size:18px;
-animation:float 12s linear infinite;
+animation:float 14s linear infinite;
 }
 
 @keyframes float{
 0%{transform:translateY(100vh)}
 100%{transform:translateY(-10vh)}
+}
+
+.blurNote{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(6px);
+padding:10px 18px;
+border-radius:20px;
+margin-bottom:15px;
+font-size:14px;
+}
+
+.languageBox{
+max-width:420px;
+line-height:1.8;
+font-size:18px;
 }
 
 </style>
@@ -117,7 +133,7 @@ animation:float 12s linear infinite;
 
 <section id="landing">
 
-<h1 id="shrutiName">Happy Birthday My Favourite Person</h1>
+<h1>Happy Birthday My Sethani Sa♥️</h1>
 
 <p>
 
@@ -141,7 +157,9 @@ Happy Birthday to someone truly amazing 💖
 
 <section id="cake">
 
-<p>🔊 Please turn volume up to listen wishes</p>
+<div class="blurNote">
+🔊 Please turn volume up to listen wishes
+</div>
 
 <h2>Let's Cut Your Birthday Cake 🎂</h2>
 
@@ -151,7 +169,43 @@ Happy Birthday to someone truly amazing 💖
 
 <button onclick="cutCake()" id="cutBtn">Cut Cake</button>
 
-<button onclick="show('secrets')" id="nextBtn" style="display:none">Continue</button>
+<button onclick="show('wishes')" id="nextBtn" style="display:none">Continue</button>
+
+</section>
+
+
+<!-- WISHES AROUND WORLD -->
+
+<section id="wishes">
+
+<h2>Birthday Wishes Around The World for you🌍</h2>
+
+<div class="languageBox">
+
+Happy Birthday – English<br>
+जन्मदिन मुबारक – Hindi<br>
+Feliz Cumpleaños – Spanish<br>
+Joyeux Anniversaire – French<br>
+Alles Gute zum Geburtstag – German<br>
+Buon Compleanno – Italian<br>
+お誕生日おめでとう – Japanese<br>
+생일 축하합니다 – Korean<br>
+С Днем Рождения – Russian<br>
+Feliz Aniversário – Portuguese<br>
+Doğum Günün Kutlu Olsun – Turkish<br>
+Selamat Ulang Tahun – Indonesian<br>
+Gelukkige Verjaardag – Dutch<br>
+Grattis på födelsedagen – Swedish<br>
+Gratulerer med dagen – Norwegian<br>
+Hyvää syntymäpäivää – Finnish<br>
+Sto Lat – Polish<br>
+La Mulți Ani – Romanian<br>
+عيد ميلاد سعيد – Arabic<br>
+生日快乐 – Chinese
+
+</div>
+
+<button onclick="show('secrets')">Next</button>
 
 </section>
 
@@ -197,13 +251,26 @@ Happy Birthday to someone truly amazing 💖
 </section>
 
 
-<!-- FUTURE -->
+<!-- FUTURE MESSAGE -->
 
 <section id="future">
 
-<h2>Message From Future</h2>
+<h2>A Message From The Future : 2035</h2>
 
-<p id="futureText" style="max-width:450px;line-height:1.7"></p>
+<p style="max-width:450px;line-height:1.7">
+
+Dear Shruti,<br><br>
+
+I hope when you read this you still have the same beautiful smile.<br><br>
+I hope you are my sethani sa and i am your seth sa🤭.<br><br>
+Maybe by now we are married and living happily together.<br>
+The challenges you once worried about are no more.<br><br>
+
+And you are happy with me.<br><br>
+
+Choosing you was the best decision of my life.🙌
+
+</p>
 
 <button onclick="show('voice')">Next</button>
 
@@ -214,7 +281,7 @@ Happy Birthday to someone truly amazing 💖
 
 <section id="voice">
 
-<h2>A Small Message From Me 🎧</h2>
+<h2>A Small Message From Me😏 🎧</h2>
 
 <button onclick="playVoice()">Play Voice Message</button>
 
@@ -231,7 +298,21 @@ Happy Birthday to someone truly amazing 💖
 
 <button onclick="openLetter()">Tap To Open My Letter ❤️</button>
 
-<p id="letterText" style="display:none;max-width:450px;line-height:1.7;margin-top:20px"></p>
+<p id="letterText" style="display:none;max-width:450px;line-height:1.7;margin-top:20px">
+
+Dear Shruti,<br><br>
+
+Sometimes life brings someone who quietly becomes very important.<br><br>
+
+You are that person for me.<br><br>
+
+Your smile, your thoughts, and your presence make ordinary days feel special.<br><br>
+
+And if life ever gives me the chance, I would love to walk this journey with you.<br><br>
+
+Happy Birthday once again my Happy place❤️
+
+</p>
 
 <button onclick="show('response')" id="respBtn" style="display:none">Next</button>
 
@@ -254,13 +335,10 @@ Happy Birthday to someone truly amazing 💖
 <script>
 
 function show(id){
-
 document.querySelectorAll("section").forEach(s=>{
 s.style.display="none"
 })
-
 document.getElementById(id).style.display="flex"
-
 }
 
 
@@ -269,13 +347,9 @@ function cutCake(){
 let v=document.getElementById("cakeVideo")
 
 v.pause()
-
 v.innerHTML='<source src="images/cakecut.mp4">'
-
 v.load()
-
 v.play()
-
 v.loop=false
 
 document.getElementById("cutBtn").style.display="none"
@@ -294,15 +368,13 @@ let secrets=[
 "I live in your social media profiles",
 "I visit saved snaps whenever I miss you",
 "I love your hairs when they are open",
-"I hate when you reply me late",
-"I want to marry you despite all challenges"
+"I hate when you reply me late or say no about marriage 🥺",
+"I want to marry you despite all challenges♥️"
 ]
 
 function revealSecret(el,i){
-
 el.classList.add("fade")
 document.getElementById("secretText").innerText=secrets[i]
-
 }
 
 
@@ -314,63 +386,21 @@ let reasons=[
 "Your touch","Your dressing sense","The way you watch movie",
 "Your soul","The way you listen","The way you trust me",
 "The way you cry","Our late night talks","Our late night walks",
-"Your lips","The way you hold my hand","Everything about you"
+"Your lips","The way you hold my hand","Everything about you🥰"
 ]
 
 let r=document.getElementById("reasonHearts")
 
 reasons.forEach((t,i)=>{
-
 let h=document.createElement("span")
 h.className="heart"
 h.innerHTML="❤️"
-
 h.onclick=function(){
 h.classList.add("fade")
 document.getElementById("reasonText").innerText=t
 }
-
 r.appendChild(h)
-
 })
-
-
-
-let future=`Dear Shruti,
-
-I hope when you read this
-you still have the same beautiful smile.
-
-Maybe by now we are married,
-living happily together.
-
-The challenges you once worried about
-are no more.
-
-And you are happy with me.
-
-Choosing you
-was the best decision of my life.
-
-Love,
-Deepak`
-
-let f=0
-
-function typeFuture(){
-
-if(f<future.length){
-
-document.getElementById("futureText").innerHTML+=future.charAt(f)
-f++
-
-setTimeout(typeFuture,80)
-
-}
-
-}
-
-typeFuture()
 
 
 
@@ -380,70 +410,15 @@ document.getElementById("voiceMsg").play()
 
 
 
-let letter=`Dear Shruti,
-
-Sometimes life brings someone
-who quietly becomes very important.
-
-You are that person for me.
-
-Your smile,
-your thoughts,
-your presence
-
-make ordinary days feel special.
-
-And if life ever gives me the chance,
-I would love to walk this journey with you.
-
-Happy Birthday once again ❤️`
-
-let l=0
-
 function openLetter(){
-
 document.getElementById("letterText").style.display="block"
 document.getElementById("respBtn").style.display="block"
-
-function typeLetter(){
-
-if(l<letter.length){
-
-document.getElementById("letterText").innerHTML+=letter.charAt(l)
-l++
-
-setTimeout(typeLetter,110)
-
-}
-
-}
-
-typeLetter()
-
 }
 
 
 
 function openForm(){
-
 window.open("https://forms.gle/ZjV6b5LMijhP11MU6","_blank")
-
-}
-
-
-
-let clicks=0
-
-document.getElementById("shrutiName").onclick=function(){
-
-clicks++
-
-if(clicks==5){
-
-alert("You found a hidden message ❤️\n\nYou mean my world to me more than you know.\nMaybe life becomes even more beautiful if you say YES for marriage someday 😁")
-
-}
-
 }
 
 
@@ -451,11 +426,9 @@ alert("You found a hidden message ❤️\n\nYou mean my world to me more than yo
 for(let i=0;i<25;i++){
 
 let heart=document.createElement("span")
-
 heart.innerHTML="❤"
-
 heart.style.left=Math.random()*100+"%"
-heart.style.animationDuration=(8+Math.random()*8)+"s"
+heart.style.animationDuration=(10+Math.random()*8)+"s"
 
 document.querySelector(".bgHearts").appendChild(heart)
 
