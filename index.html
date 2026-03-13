@@ -13,6 +13,7 @@ font-family:Arial;
 text-align:center;
 color:white;
 background:url("images/hero.jpg") center/cover fixed;
+overflow-x:hidden;
 }
 
 section{
@@ -23,20 +24,29 @@ justify-content:center;
 align-items:center;
 padding:30px;
 background:rgba(0,0,0,0.55);
+opacity:1;
+transition:opacity .5s;
 }
+
+h1{font-size:32px}
+h2{font-size:26px}
 
 button{
-padding:14px 24px;
+padding:14px 26px;
 border:none;
-border-radius:30px;
-background:#ff4d6d;
+border-radius:40px;
+background:linear-gradient(45deg,#ff4d6d,#ff758f);
 color:white;
 font-size:16px;
-margin:10px;
 cursor:pointer;
+margin:10px;
+box-shadow:0 10px 25px rgba(0,0,0,.4);
+transition:.3s;
 }
 
-button:hover{transform:scale(1.05)}
+button:hover{
+transform:translateY(-3px) scale(1.05);
+}
 
 video{
 width:90%;
@@ -49,11 +59,14 @@ margin-top:20px;
 font-size:30px;
 margin:8px;
 cursor:pointer;
-transition:0.3s;
+transition:.4s;
 }
 
+.heart:hover{transform:scale(1.3)}
+
 .fade{
-opacity:0.3;
+opacity:0.2;
+transform:scale(.7);
 pointer-events:none;
 }
 
@@ -64,20 +77,32 @@ font-size:18px;
 line-height:1.6;
 }
 
-textarea{
-width:90%;
-max-width:400px;
-height:120px;
-border-radius:10px;
-padding:10px;
-border:none;
+.bgHearts{
+position:fixed;
+width:100%;
+height:100%;
+overflow:hidden;
+pointer-events:none;
+}
+
+.bgHearts span{
+position:absolute;
+color:#ff6b81;
+font-size:18px;
+animation:float 12s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh)}
+100%{transform:translateY(-10vh)}
 }
 
 </style>
-
 </head>
 
 <body>
+
+<div class="bgHearts"></div>
 
 <audio id="bdaySound">
 <source src="music/bdaysound.mp3">
@@ -126,9 +151,7 @@ Happy Birthday to someone truly amazing 💖
 
 <button onclick="cutCake()" id="cutBtn">Cut Cake</button>
 
-<button onclick="show('secrets')" id="nextBtn" style="display:none">
-Continue
-</button>
+<button onclick="show('secrets')" id="nextBtn" style="display:none">Continue</button>
 
 </section>
 
@@ -139,7 +162,7 @@ Continue
 
 <h2>Tap Hearts To Reveal My Secrets ❤️</h2>
 
-<div id="secretHearts">
+<div>
 
 <span class="heart" onclick="revealSecret(this,0)">❤️</span>
 <span class="heart" onclick="revealSecret(this,1)">❤️</span>
@@ -174,13 +197,13 @@ Continue
 </section>
 
 
-<!-- FUTURE MESSAGE -->
+<!-- FUTURE -->
 
 <section id="future">
 
 <h2>Message From Future</h2>
 
-<p id="typeText" style="max-width:450px;line-height:1.7"></p>
+<p id="futureText" style="max-width:450px;line-height:1.7"></p>
 
 <button onclick="show('voice')">Next</button>
 
@@ -219,16 +242,11 @@ Continue
 
 <section id="response">
 
-<h2>One Question For You</h2>
+<h2>Write Something For Me</h2>
 
-<p>
-What is your favourite memory with me?<br>
-Or you can write anything on your birthday.
-</p>
+<p>You can write anything for me on your birthday ❤️</p>
 
-<textarea></textarea><br>
-
-<button onclick="submitResponse()">Send</button>
+<button onclick="openForm()">Write Your Message</button>
 
 </section>
 
@@ -236,11 +254,14 @@ Or you can write anything on your birthday.
 <script>
 
 function show(id){
-document.querySelectorAll("section").forEach(s=>s.style.display="none")
-document.getElementById(id).style.display="flex"
-}
 
-show("landing")
+document.querySelectorAll("section").forEach(s=>{
+s.style.display="none"
+})
+
+document.getElementById(id).style.display="flex"
+
+}
 
 
 function cutCake(){
@@ -280,7 +301,6 @@ let secrets=[
 function revealSecret(el,i){
 
 el.classList.add("fade")
-
 document.getElementById("secretText").innerText=secrets[i]
 
 }
@@ -306,10 +326,8 @@ h.className="heart"
 h.innerHTML="❤️"
 
 h.onclick=function(){
-
 h.classList.add("fade")
 document.getElementById("reasonText").innerText=t
-
 }
 
 r.appendChild(h)
@@ -343,7 +361,7 @@ function typeFuture(){
 
 if(f<future.length){
 
-document.getElementById("typeText").innerHTML+=future.charAt(f)
+document.getElementById("futureText").innerHTML+=future.charAt(f)
 f++
 
 setTimeout(typeFuture,80)
@@ -394,7 +412,7 @@ if(l<letter.length){
 document.getElementById("letterText").innerHTML+=letter.charAt(l)
 l++
 
-setTimeout(typeLetter,90)
+setTimeout(typeLetter,110)
 
 }
 
@@ -406,9 +424,9 @@ typeLetter()
 
 
 
-function submitResponse(){
+function openForm(){
 
-window.open("https://docs.google.com/forms/d/e/1FAIpQLSdh8ebrDlwyTFBhCJfgwIaVCAO7koqWCVK0e9D3AfIvBG0L-A/viewform")
+window.open("https://forms.gle/ZjV6b5LMijhP11MU6","_blank")
 
 }
 
@@ -427,6 +445,23 @@ alert("You found a hidden message ❤️\n\nYou mean my world to me more than yo
 }
 
 }
+
+
+
+for(let i=0;i<25;i++){
+
+let heart=document.createElement("span")
+
+heart.innerHTML="❤"
+
+heart.style.left=Math.random()*100+"%"
+heart.style.animationDuration=(8+Math.random()*8)+"s"
+
+document.querySelector(".bgHearts").appendChild(heart)
+
+}
+
+show("landing")
 
 </script>
 
