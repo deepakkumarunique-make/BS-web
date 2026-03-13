@@ -203,17 +203,22 @@ line-height:1.7;
 
 }
 
-/* smooth fade */
+/* video */
+
+video{
+box-shadow:0 10px 30px rgba(0,0,0,.6);
+border-radius:16px;
+}
+
+/* fade animation */
 
 section{
 animation:fade .8s;
 }
 
 @keyframes fade{
-
 from{opacity:0}
 to{opacity:1}
-
 }
 
 </style>
@@ -247,6 +252,33 @@ Happy Birthday to someone truly amazing. 💖
 </p>
 
 <button onclick="start()">Begin</button>
+
+</section>
+
+
+<!-- CAKE CUTTING -->
+
+<section id="cake">
+
+<h2>Let's Cut Your Birthday Cake 🎂</h2>
+
+<p>Before we continue, there's a small celebration waiting for you.</p>
+
+<div style="margin-top:25px; max-width:380px;">
+
+<video id="cakeVideo" width="100%" autoplay loop muted>
+
+<source src="images/bcakecut.mp4" type="video/mp4">
+
+</video>
+
+</div>
+
+<button onclick="cutCake()" id="cakeBtn">Cut the Cake 🎂</button>
+
+<button onclick="show('languages')" id="continueBtn" style="display:none;">
+Continue
+</button>
 
 </section>
 
@@ -399,7 +431,29 @@ function start(){
 
 document.getElementById("music").play()
 
-show("languages")
+show("cake")
+
+}
+
+/* cake cutting */
+
+function cutCake(){
+
+let video=document.getElementById("cakeVideo")
+
+video.pause()
+
+video.innerHTML='<source src="images/cakecut.mp4" type="video/mp4">'
+
+video.load()
+
+video.play()
+
+video.loop=false
+
+document.getElementById("cakeBtn").style.display="none"
+
+document.getElementById("continueBtn").style.display="inline-block"
 
 }
 
@@ -446,7 +500,7 @@ const reasons=[
 "Your honesty",
 "Your touch",
 "Your dressing sense",
-"The way you watch movies",
+"The way you watch movie",
 "Your soul",
 "The way you listen",
 "The way you trust me",
