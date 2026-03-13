@@ -26,9 +26,6 @@ padding:30px;
 background:rgba(0,0,0,0.55);
 }
 
-h1{font-size:32px}
-h2{font-size:26px}
-
 button{
 padding:14px 26px;
 border:none;
@@ -43,7 +40,7 @@ transition:.3s;
 }
 
 button:hover{
-transform:translateY(-3px) scale(1.05);
+transform:scale(1.05);
 }
 
 video{
@@ -132,14 +129,11 @@ font-size:14px;
 </audio>
 
 
-<!-- LANDING -->
-
 <section id="landing">
 
 <h1>Happy Birthday My Favourite Person</h1>
 
 <p>
-
 Dear Shruti,<br><br>
 
 Today is all about celebrating you.<br>
@@ -148,15 +142,12 @@ Your kindness, your smile, and the happiness you bring into my life.<br><br>
 I hope this birthday brings you as much joy as you bring to everyone around you.<br><br>
 
 Happy Birthday to someone truly amazing 💖
-
 </p>
 
 <button onclick="show('cake')">Start</button>
 
 </section>
 
-
-<!-- CAKE -->
 
 <section id="cake">
 
@@ -177,29 +168,25 @@ Happy Birthday to someone truly amazing 💖
 </section>
 
 
-<!-- WISHES AROUND WORLD -->
-
 <section id="wishes">
 
 <h2>Birthday Wishes Around The World 🌍</h2>
 
 <div class="blurCard" id="wishText"></div>
 
-<button onclick="nextWish()" id="wishBtn">Next</button>
-
-<button onclick="show('secrets')" id="wishContinue" style="display:none">Continue</button>
+<div>
+<button onclick="nextWish()">Next Wish</button>
+<button onclick="show('secrets')">Next Page</button>
+</div>
 
 </section>
 
-
-<!-- SECRETS -->
 
 <section id="secrets">
 
 <h2>Tap Hearts To Reveal My Secrets ❤️</h2>
 
 <div>
-
 <span class="heart" onclick="revealSecret(this,0)">❤️</span>
 <span class="heart" onclick="revealSecret(this,1)">❤️</span>
 <span class="heart" onclick="revealSecret(this,2)">❤️</span>
@@ -208,7 +195,6 @@ Happy Birthday to someone truly amazing 💖
 <span class="heart" onclick="revealSecret(this,5)">❤️</span>
 <span class="heart" onclick="revealSecret(this,6)">❤️</span>
 <span class="heart" onclick="revealSecret(this,7)">❤️</span>
-
 </div>
 
 <div class="textBox" id="secretText"></div>
@@ -217,8 +203,6 @@ Happy Birthday to someone truly amazing 💖
 
 </section>
 
-
-<!-- WHY SPECIAL -->
 
 <section id="special">
 
@@ -232,8 +216,6 @@ Happy Birthday to someone truly amazing 💖
 
 </section>
 
-
-<!-- FUTURE -->
 
 <section id="future">
 
@@ -259,8 +241,6 @@ Choosing you was the best decision of my life.
 </section>
 
 
-<!-- VOICE -->
-
 <section id="voice">
 
 <h2>A Small Message From Me 🎧</h2>
@@ -271,8 +251,6 @@ Choosing you was the best decision of my life.
 
 </section>
 
-
-<!-- LETTER -->
 
 <section id="letter">
 
@@ -301,8 +279,6 @@ Happy Birthday once again ❤️
 </section>
 
 
-<!-- RESPONSE -->
-
 <section id="response">
 
 <h2>Write Something For Me</h2>
@@ -323,8 +299,6 @@ s.style.display="none"
 document.getElementById(id).style.display="flex"
 }
 
-
-
 function cutCake(){
 
 let v=document.getElementById("cakeVideo")
@@ -341,7 +315,6 @@ document.getElementById("nextBtn").style.display="block"
 document.getElementById("bdaySound").play()
 
 }
-
 
 
 let wishes=[
@@ -370,21 +343,10 @@ let wishes=[
 let w=0
 
 function nextWish(){
-
 document.getElementById("wishText").innerText=wishes[w]
-
 w++
-
-if(w==wishes.length){
-
-document.getElementById("wishBtn").style.display="none"
-document.getElementById("wishContinue").style.display="inline-block"
-
+if(w>=wishes.length){w=0}
 }
-
-}
-
-
 
 let secrets=[
 "You look very cute when you are angry",
@@ -401,8 +363,6 @@ function revealSecret(el,i){
 el.classList.add("fade")
 document.getElementById("secretText").innerText=secrets[i]
 }
-
-
 
 let reasons=[
 "Your smile","Your hairs","Your eyes","Your anger",
@@ -427,40 +387,28 @@ document.getElementById("reasonText").innerText=t
 r.appendChild(h)
 })
 
-
-
 function playVoice(){
 document.getElementById("voiceMsg").play()
 }
-
-
 
 function openLetter(){
 document.getElementById("letterText").style.display="block"
 document.getElementById("respBtn").style.display="block"
 }
 
-
-
 function openForm(){
 window.open("https://forms.gle/ZjV6b5LMijhP11MU6","_blank")
 }
 
-
-
 for(let i=0;i<25;i++){
-
 let heart=document.createElement("span")
 heart.innerHTML="❤"
 heart.style.left=Math.random()*100+"%"
 heart.style.animationDuration=(10+Math.random()*8)+"s"
-
 document.querySelector(".bgHearts").appendChild(heart)
-
 }
 
 nextWish()
-
 show("landing")
 
 </script>
