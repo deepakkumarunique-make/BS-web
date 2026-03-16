@@ -36,6 +36,11 @@ font-size:16px;
 cursor:pointer;
 margin:10px;
 box-shadow:0 10px 25px rgba(0,0,0,.4);
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
 }
 
 video{
@@ -45,33 +50,19 @@ border-radius:16px;
 margin-top:20px;
 }
 
-.blurCard{
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(6px);
-padding:20px;
-border-radius:20px;
-margin:20px;
-font-size:22px;
-}
-
-.blurNote{
-background:rgba(255,255,255,0.15);
-backdrop-filter:blur(6px);
-padding:10px 18px;
-border-radius:20px;
-margin-bottom:15px;
-font-size:14px;
-}
-
 .heart{
 font-size:28px;
 margin:8px;
 cursor:pointer;
-transition:.3s;
+transition:.4s;
+}
+
+.heart:hover{
+transform:scale(1.3)
 }
 
 .fade{
-opacity:.2;
+opacity:0.2;
 transform:scale(.7);
 pointer-events:none;
 }
@@ -94,7 +85,7 @@ pointer-events:none;
 .bgHearts span{
 position:absolute;
 color:#ff6b81;
-opacity:.15;
+opacity:0.15;
 font-size:18px;
 animation:float 14s linear infinite;
 }
@@ -104,21 +95,22 @@ animation:float 14s linear infinite;
 100%{transform:translateY(-10vh)}
 }
 
-/* CONFETTI */
-
-.confetti{
-position:fixed;
-width:10px;
-height:10px;
-background:red;
-top:-10px;
-animation:fall 3s linear forwards;
+.blurCard{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(6px);
+padding:20px 25px;
+border-radius:20px;
+font-size:22px;
+margin:20px;
 }
 
-@keyframes fall{
-to{
-transform:translateY(100vh) rotate(720deg);
-}
+.blurNote{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(6px);
+padding:10px 18px;
+border-radius:20px;
+margin-bottom:15px;
+font-size:14px;
 }
 
 </style>
@@ -136,14 +128,11 @@ transform:translateY(100vh) rotate(720deg);
 <source src="music/audio.mp3">
 </audio>
 
-<!-- LANDING -->
-
 <section id="landing">
 
 <h1>Happy Birthday My Favourite Person</h1>
 
 <p>
-
 Dear Shruti,<br><br>
 
 Today is all about celebrating you.<br>
@@ -152,19 +141,38 @@ Your kindness, your smile, and the happiness you bring into my life.<br><br>
 I hope this birthday brings you as much joy as you bring to everyone around you.<br><br>
 
 Happy Birthday to someone truly amazing 💖
-
 </p>
 
-<button onclick="show('cake')">Start</button>
+<button onclick="show('timeline')">Start</button>
 
 </section>
 
 
-<!-- CAKE -->
+<section id="timeline">
+
+<h2>Our Journey Together ⏳</h2>
+
+<p style="max-width:420px;line-height:1.6">
+We first met on <b>10 July 2023 at 1:00 PM</b>.<br><br>
+Since that moment, time has been quietly writing our story.
+</p>
+
+<div class="blurCard">
+<div id="loveClock">Loading time...</div>
+</div>
+
+<p>And the clock is still ticking ❤️</p>
+
+<button onclick="show('cake')">Continue</button>
+
+</section>
+
 
 <section id="cake">
 
-<div class="blurNote">🔊 Please turn volume up to listen wishes</div>
+<div class="blurNote">
+🔊 Please turn volume up to listen wishes
+</div>
 
 <h2>Let's Cut Your Birthday Cake 🎂</h2>
 
@@ -179,8 +187,6 @@ Happy Birthday to someone truly amazing 💖
 </section>
 
 
-<!-- WISHES -->
-
 <section id="wishes">
 
 <h2>Birthday Wishes Around The World 🌍</h2>
@@ -189,28 +195,11 @@ Happy Birthday to someone truly amazing 💖
 
 <div>
 <button onclick="nextWish()">Next Wish</button>
-<button onclick="show('days')">Next Page</button>
+<button onclick="show('secrets')">Next Page</button>
 </div>
 
 </section>
 
-
-<!-- DAYS COUNTER -->
-
-<section id="days">
-
-<h2>Our Journey So Far ❤️</h2>
-
-<div class="blurCard">
-<p id="dayCounter"></p>
-</div>
-
-<button onclick="show('secrets')">Next</button>
-
-</section>
-
-
-<!-- SECRETS -->
 
 <section id="secrets">
 
@@ -234,8 +223,6 @@ Happy Birthday to someone truly amazing 💖
 </section>
 
 
-<!-- SPECIAL -->
-
 <section id="special">
 
 <h2>Click Hearts To Know Why You Are Special ❤️</h2>
@@ -248,8 +235,6 @@ Happy Birthday to someone truly amazing 💖
 
 </section>
 
-
-<!-- FUTURE -->
 
 <section id="future">
 
@@ -275,8 +260,6 @@ Choosing you was the best decision of my life.
 </section>
 
 
-<!-- VOICE -->
-
 <section id="voice">
 
 <h2>A Small Message From Me 🎧</h2>
@@ -287,8 +270,6 @@ Choosing you was the best decision of my life.
 
 </section>
 
-
-<!-- LETTER -->
 
 <section id="letter">
 
@@ -317,8 +298,6 @@ Happy Birthday once again ❤️
 </section>
 
 
-<!-- RESPONSE -->
-
 <section id="response">
 
 <h2>Write Something For Me</h2>
@@ -332,8 +311,6 @@ Happy Birthday once again ❤️
 
 <script>
 
-/* navigation */
-
 function show(id){
 document.querySelectorAll("section").forEach(s=>{
 s.style.display="none"
@@ -341,7 +318,35 @@ s.style.display="none"
 document.getElementById(id).style.display="flex"
 }
 
-/* cake cut */
+function updateLoveClock(){
+
+let startDate = new Date("July 10, 2023 13:00:00").getTime()
+let now = new Date().getTime()
+
+let diff = now - startDate
+
+let seconds = Math.floor(diff/1000)%60
+let minutes = Math.floor(diff/(1000*60))%60
+let hours = Math.floor(diff/(1000*60*60))%24
+let days = Math.floor(diff/(1000*60*60*24))
+
+let years = Math.floor(days/365)
+days = days % 365
+
+let months = Math.floor(days/30)
+days = days % 30
+
+document.getElementById("loveClock").innerHTML =
+years+" Years "+
+months+" Months "+
+days+" Days<br>"+
+hours+" Hours "+
+minutes+" Minutes "+
+seconds+" Seconds"
+
+}
+
+setInterval(updateLoveClock,1000)
 
 function cutCake(){
 
@@ -358,31 +363,7 @@ document.getElementById("nextBtn").style.display="block"
 
 document.getElementById("bdaySound").play()
 
-confetti()
-
 }
-
-/* confetti */
-
-function confetti(){
-
-for(let i=0;i<80;i++){
-
-let c=document.createElement("div")
-c.className="confetti"
-
-c.style.left=Math.random()*100+"%"
-c.style.background="hsl("+Math.random()*360+"deg,80%,60%)"
-
-document.body.appendChild(c)
-
-setTimeout(()=>c.remove(),3000)
-
-}
-
-}
-
-/* wishes */
 
 let wishes=[
 "Happy Birthday – English",
@@ -394,8 +375,7 @@ let wishes=[
 "お誕生日おめでとう – Japanese",
 "생일 축하합니다 – Korean",
 "С Днем Рождения – Russian",
-"Feliz Aniversário – Portuguese",
-"生日快乐 – Chinese"
+"Feliz Aniversário – Portuguese"
 ]
 
 let w=0
@@ -405,18 +385,6 @@ document.getElementById("wishText").innerText=wishes[w]
 w++
 if(w>=wishes.length){w=0}
 }
-
-/* day counter */
-
-let start=new Date("July 10, 2023")
-let today=new Date()
-
-let diff=Math.floor((today-start)/(1000*60*60*24))
-
-document.getElementById("dayCounter").innerHTML=
-"We have known each other for<br><br><b>"+diff+" Days ❤️</b>"
-
-/* secrets */
 
 let secrets=[
 "You look very cute when you are angry",
@@ -434,16 +402,13 @@ el.classList.add("fade")
 document.getElementById("secretText").innerText=secrets[i]
 }
 
-/* reasons */
-
 let reasons=[
 "Your smile","Your hairs","Your eyes","Your anger",
 "Your overthinking","Bracelet on your hand","Your kindness",
 "How you look at me","How you care","Your honesty",
 "Your touch","Your dressing sense","The way you watch movie",
 "Your soul","The way you listen","The way you trust me",
-"The way you cry","Our late night talks","Our late night walks",
-"Your lips","The way you hold my hand"
+"Everything about you"
 ]
 
 let r=document.getElementById("reasonHearts")
@@ -459,26 +424,18 @@ document.getElementById("reasonText").innerText=t
 r.appendChild(h)
 })
 
-/* voice */
-
 function playVoice(){
 document.getElementById("voiceMsg").play()
 }
-
-/* letter */
 
 function openLetter(){
 document.getElementById("letterText").style.display="block"
 document.getElementById("respBtn").style.display="block"
 }
 
-/* form */
-
 function openForm(){
 window.open("https://forms.gle/ZjV6b5LMijhP11MU6","_blank")
 }
-
-/* background hearts */
 
 for(let i=0;i<25;i++){
 let heart=document.createElement("span")
@@ -489,6 +446,7 @@ document.querySelector(".bgHearts").appendChild(heart)
 }
 
 nextWish()
+updateLoveClock()
 show("landing")
 
 </script>
